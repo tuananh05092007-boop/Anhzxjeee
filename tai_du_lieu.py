@@ -17,21 +17,18 @@ def cai_dat_gdown():
 def tai_va_giai_nen():
     gdown = cai_dat_gdown()
 
-    # THUẬT TOÁN TỐI ƯU: Chỉ dùng đúng mã ID, không kèm râu ria
     FILE_ID = "1PXVQq_iWQwb4RNQuUxwx91EwWP6WLPPZ"
     output_zip = 'dataset_sach.zip'
     thu_muc_dich = 'data/'
 
     print("1. 🚀 Bắt đầu tải bộ Data từ Drive về máy...")
 
-    # Dùng fuzzy=True để tự động vượt qua trang web cảnh báo virus của Google
     gdown.download(id=FILE_ID, output=output_zip, quiet=False, fuzzy=True)
 
     print("\n2. 📦 Tải xong! Đang kiểm tra và bung nén (Unzip)...")
     if not os.path.exists(thu_muc_dich):
         os.makedirs(thu_muc_dich)
 
-    # Bẫy lỗi an toàn: Kiểm tra xem file tải về có đúng là Zip thật không
     try:
         with zipfile.ZipFile(output_zip, 'r') as zip_ref:
             zip_ref.extractall(thu_muc_dich)
@@ -48,4 +45,5 @@ def tai_va_giai_nen():
 
 
 if __name__ == "__main__":
+
     tai_va_giai_nen()
