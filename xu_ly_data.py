@@ -2,7 +2,6 @@ import os
 import pysrt
 import subprocess
 
-# --- CẤU HÌNH ĐƯỜNG DẪN ---
 THU_MUC_DATA = "data"
 THU_MUC_XUAT = "data/dataset_sach"
 
@@ -14,9 +13,8 @@ def xu_ly_hang_loat():
         os.makedirs(THU_MUC_XUAT)
 
     metadata_lines = []
-    bien_dem_tong = 0  # Biến này giúp các file đếm nối tiếp nhau không bị đè
+    bien_dem_tong = 0 
 
-    # Quét tất cả các file có trong thư mục data
     danh_sach_file = os.listdir(THU_MUC_DATA)
     file_wavs = [f for f in danh_sach_file if f.endswith(".wav")]
 
@@ -25,11 +23,9 @@ def xu_ly_hang_loat():
     for ten_file_wav in file_wavs:
         duong_dan_wav = os.path.join(THU_MUC_DATA, ten_file_wav)
 
-        # Tự động suy luận tên file SRT tương ứng
         ten_file_srt = ten_file_wav.replace(".wav", ".srt")
         duong_dan_srt = os.path.join(THU_MUC_DATA, ten_file_srt)
 
-        # Kiểm tra xem file SRT có tồn tại không
         if not os.path.exists(duong_dan_srt):
             print(f"[BỎ QUA] File {ten_file_wav} không có file {ten_file_srt} đi kèm.")
             continue
@@ -61,9 +57,8 @@ def xu_ly_hang_loat():
             text_content = sub.text.replace('\n', ' ').strip()
             metadata_lines.append(f"{chunk_name}|{text_content}")
 
-            bien_dem_tong += 1  # Tăng số thứ tự lên 1 cho câu tiếp theo
-
-    # Lưu toàn bộ danh sách hàng ngàn câu vào 1 file metadata duy nhất
+            bien_dem_tong += 1  
+            
     with open(os.path.join(THU_MUC_XUAT, "metadata.csv"), "w", encoding="utf-8") as f:
         f.write("\n".join(metadata_lines))
 
@@ -72,4 +67,5 @@ def xu_ly_hang_loat():
 
 
 if __name__ == "__main__":
+
     xu_ly_hang_loat()
